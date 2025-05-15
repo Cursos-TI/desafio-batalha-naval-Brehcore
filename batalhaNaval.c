@@ -1,40 +1,88 @@
 #include <stdio.h>
 
 // Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
+// Nível Mestre
 
-int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
+    // Tamanho das matrizes de habilidades
+    #define TAM 5
 
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+    // Função para valorAbsoluto
+    int valorAbsoluto(int x) {
+        return x< 0 ? -x : x;
+    }    
 
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
+    void habilidadeCone() {
+        int cone[TAM][TAM] = {0};
 
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
+        // Preenchimento padrão do cone - piramidal
+        for (int i = 0; i < TAM;  i++) {
+            for (int j = TAM / 2 - i; j <= TAM /2 + i; j++) {
+                if (j>= 0 && j < TAM) {
+                    cone[i][j] = 1;
+                }
+            }
+        }
+
+    // Mostrando a habilidade cone
+    printf("Habilidade: Cone\n");
+    for (int i = 0; i < TAM; i++) {
+        for (int j = 0; j < TAM; j++) {
+            printf("%d", cone[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+    void habilidadeOctaedro() {
+        int octaedro[TAM][TAM] = {0};
+        
+        // Preenchimento padrão octaedro (losando)
+        int meio = TAM / 2;
+        for (int i = 0; i < TAM; i++) {
+            int distancia = valorAbsoluto(meio - i);
+            for (int j = distancia; j < TAM - distancia; j++) {
+                octaedro[i][j] = 1;
+            }
+        }
+
+        //Mostrando a habilidade octaedro
+        printf("Habilidade: Octaedro\n");
+        for (int i = 0; i < TAM; i++) {
+            for (int j = 0; j < TAM; j++) {
+                printf("%d", octaedro[i][j]);
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+
+    void habilidadeCruz() {
+        int cruz[TAM][TAM] = {0};
+
+        // Preenchendo  padrão cruz
+        int meio = TAM / 2;
+        for (int i = 0; i < TAM; i++) {
+            cruz[i][meio] = 1; //Coluna do meio
+            cruz[meio][i] = 1; //Linha do meio
+        }
+
+        //Mostrando a habilidade cruz
+        printf("Habilidade: Cruz\n");
+        for (int i = 0; i < TAM; i++) {
+            for (int j = 0; j < TAM; j++) {
+                printf("%d", cruz[i][j]);
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+
+    int main() {
     
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
-
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
-
+        habilidadeCone();
+        habilidadeOctaedro();
+        habilidadeCruz();
+    
     return 0;
 }
